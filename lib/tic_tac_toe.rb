@@ -73,7 +73,7 @@ def input_to_index(user_input)
   user_input.to_i - 1
 end
 
-def move(board, index, current_player = "X")
+def move(board, index, current_player)
   board[index] = current_player
 end
 
@@ -92,14 +92,6 @@ def turn(board)
   if valid_move?(board, index)
     move(board, index, current_player(board))
     display_board(board)
-    if over?(board)
-      if won?(board)
-        puts "Congratulations #{winner(board)}!"
-      elsif draw?(board)
-        puts "Nobody wins!"
-      end
-      exit(0)
-    end
   else
     turn(board)
   end
@@ -108,6 +100,14 @@ end
 # Define your play method below
 def play(board)
   9.times do
+    if over?(board)
+      if won?(board)
+        puts "Congratulations #{winner(board)}!"
+      elsif draw?(board)
+        puts "Nobody wins!"
+      end
+      exit(0)
+    end
     turn(board)
   end
 end
